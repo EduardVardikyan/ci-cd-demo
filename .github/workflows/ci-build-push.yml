@@ -24,7 +24,6 @@ jobs:
       - name: Run tests
         run: pytest -q
 
-jobs:
   build_and_push:
     name: Build & Test
     runs-on: ubuntu-latest
