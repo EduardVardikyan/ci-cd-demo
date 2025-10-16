@@ -16,19 +16,21 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - name: Debug ls
+      - name: Debug ls and python info
         run: |
-          echo: "PWD: $(pwd)"
-          ls -la
-          echo "Files in root:"
-          ls -la . 
-          echo "Python path:"
+          echo: "=== PWD and list files ==="
+          pwd
+          ls -la  
+          echo "=== Python binary and version ==="
+          which python || which python3 || echo "no python binary found"
+          python --version || python3 --version || echo "no python"
+          echo "=== show repo root content via Python ==="
           python - <<'PY'
-          import sys, os
-          print(sys.executable)
-          print(sys.path)
-          print(os.listdir('.'))
-          PY
+import sys, os
+print("sys.executable=", sys.executable)
+print("sys.path sample:", sys.path[:4])
+print("root files:", os.listdir('.'))
+PY
       
       - name: Install deps
         run: |
